@@ -37,6 +37,7 @@ for _, mapping in ipairs(hyperModeAppMappings) do
       -- First time we try to either open or focus on this application
       if application == nil or not application:isFrontmost() then
         application = hs.application.open(app, nil, true)
+        allWindows = nil
         if application ~= nil then
           allWindows = application:allWindows()
         end
