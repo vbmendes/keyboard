@@ -45,11 +45,14 @@ for _, mapping in ipairs(hyperModeAppMappings) do
       end
 
       -- If for some reason allWindows is not properly set on the previous call
-      if allWindows == nil then
+      -- Or if we currently have more or less windows than when we
+      -- created allWindows.
+      if allWindows == nil or tableLength(allWindows) ~= tableLength(application:allWindows()) then
         allWindows = application:allWindows()
       end
 
       local windowsLength = tableLength(allWindows)
+
       if (windowsLength > 1) then
         local focusedWindow = application:focusedWindow()
         local focusedIndex = tableFindIndex(allWindows, function(window) return window == focusedWindow end)
