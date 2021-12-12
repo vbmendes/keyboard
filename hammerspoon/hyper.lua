@@ -34,18 +34,18 @@ for _, mapping in ipairs(hyperModeAppMappings) do
     if (type(app) == 'string') then
       local application = hs.application.get(app)
 
-      local newWindows = application:allWindows()
-
       -- First time we try to either open or focus on this application
       if application == nil or not application:isFrontmost() then
-        hs.application.open(app)
-        allWindows = newWindows
+        application = hs.application.open(app, nil, true)
+        if application ~= nil then
+          allWindows = application:allWindows()
+        end
         return
       end
 
       -- If for some reason allWindows is not properly set on the previous call
       if allWindows == nil then
-        allWindows = newWindows
+        allWindows = application:allWindows()
       end
 
       local windowsLength = tableLength(allWindows)
