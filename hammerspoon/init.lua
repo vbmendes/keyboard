@@ -1,5 +1,7 @@
 local log = hs.logger.new('init.lua', 'debug')
 
+hs.ipc.cliInstall()
+
 -- Use Control+` to reload Hammerspoon config
 hs.hotkey.bind({'ctrl'}, '`', nil, function()
   hs.reload()
