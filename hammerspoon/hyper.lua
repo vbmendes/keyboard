@@ -32,7 +32,7 @@ local function tableFindIndex(t, fn)
   return nil
 end
 
-local goToApplication = function(appId)
+local openApplication = function(appId)
   if (type(appId) ~= 'string') then
     hs.logger.new('hyper'):e('Invalid application id ', appId)
     return
@@ -68,10 +68,10 @@ for _, mapping in ipairs(hyperModeAppMappings) do
   local key = mapping[1]
   local appId = mapping[2]
   hs.hotkey.bind({'shift', 'ctrl', 'alt', 'cmd'}, key, function()
-    goToApplication(appId)
+    openApplication(appId)
   end)
 end
 
 return {
-  goToApplication = goToApplication
+  openApplication = openApplication
 }
