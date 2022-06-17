@@ -32,6 +32,14 @@ local function tableFindIndex(t, fn)
   return nil
 end
 
+local function tableFilter(t, filterIter)
+  local out = {}
+  for k, v in pairs(t) do
+    if filterIter(v, k, t) then out[k] = v end
+  end
+  return out
+end
+
 local openApplication = function(appId)
   if (type(appId) ~= 'string') then
     hs.logger.new('hyper'):e('Invalid application id ', appId)
@@ -46,7 +54,9 @@ local openApplication = function(appId)
     return
   end
 
-  local allWindows = application:allWindows()
+  local allWindows = tableFilter(application:allWindows(), function(window)
+    return not window:isMinimized()
+  end)
   table.sort(allWindows, function(a, b) return a:id() < b:id() end)
 
   local windowsLength = tableLength(allWindows)
@@ -67,7 +77,7 @@ end
 for _, mapping in ipairs(hyperModeAppMappings) do
   local key = mapping[1]
   local appId = mapping[2]
-  hs.hotkey.bind({'shift', 'ctrl', 'alt', 'cmd'}, key, function()
+  hs.hotkey.bind({ 'shift', 'ctrl', 'alt', 'cmd' }, key, function()
     openApplication(appId)
   end)
 end
