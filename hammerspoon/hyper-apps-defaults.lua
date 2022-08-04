@@ -8,7 +8,6 @@ return {
   { 'b', 'Google Chrome' },
   { 'c', 'Workplace Chat' },
   { 'f', 'Finder' },
-  { 'e', 'VS Code @ FB' },
   { 'm', 'Microsoft Outlook' },
   { 't', 'Alacritty' },
   { 'n', 'Notion' },
