@@ -1,8 +1,15 @@
 require('hs.ipc')
 
-hs.ipc.cliInstall(os.getenv('HOME') .. '/homebrew')
-
 local log = hs.logger.new('init.lua', 'debug')
+
+local homebrewPath = os.getenv('HOME') .. '/homebreww'
+local homebrewPathStats = hs.fs.attributes(homebrewPath)
+
+if homebrewPathStats ~= nil and homebrewPathStats.mode == 'directory' then
+  hs.ipc.cliInstall(homebrewPath)
+else
+  hs.ipc.cliInstall()
+end
 
 -- Use Control+` to reload Hammerspoon config
 hs.hotkey.bind({'ctrl'}, '`', nil, function()
