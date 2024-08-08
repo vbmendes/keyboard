@@ -42,7 +42,7 @@ end
 
 local openApplication = function(appId, windowId)
   if (type(appId) ~= 'string') then
-    hs.logger.new('hyper'):e('Invalid application id ', appId)
+    hs.logger.new('hyper'):i('Invalid application id ', appId)
     return
   end
 
@@ -54,7 +54,7 @@ local openApplication = function(appId, windowId)
 
   -- First time we try to either open or focus on this application
   if application == nil or not application:isFrontmost() then
-    hs.logger.new('hyper'):e('Opened application', appId)
+    hs.logger.new('hyper'):i('Opened application', appId)
     hs.application.open(appId)
     return
   end
@@ -74,11 +74,11 @@ local openApplication = function(appId, windowId)
       allWindows,
       function(window) return window == focusedWindow end
     ) or -1
-    hs.logger.new('hyper'):e('Focused index', focusedIndex, 'of', windowId)
+    hs.logger.new('hyper'):i('Focused index', focusedIndex, 'of', windowId)
     local nextIndex = (focusedIndex % windowsLength) + 1
     allWindows[nextIndex]:focus()
   else
-    hs.logger.new('hyper'):e('There\'s only one window of', windowId or appId)
+    hs.logger.new('hyper'):i('There\'s only one window of', windowId or appId)
   end
 end
 
